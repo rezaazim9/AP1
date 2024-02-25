@@ -305,6 +305,9 @@ public class Main {
                                 }
                             }
                         }
+                        else {
+                            System.out.println("Choose between 1 ,2 ,3 ,4 !!!!!!");
+                        }
                     }
                 }
             }
@@ -377,6 +380,74 @@ public class Main {
     }
 
     public static void adding_removing_course() {
+        int choice;
+        while (true) {
+            System.out.println("Add course (1) Remove course (2) Back (3)");
+            choice=scanner.nextInt();
+            if (choice==3){
+                break;
+            } else if (choice==1) {
+                add();
+            } else if (choice==2) {
+                remove();
+            } else {
+                System.out.println("Choose between 1 ,2 ,3 !!!!!!");
+            }
+        }
+    }
+    public static void remove(){
+        int code;
+        boolean course_exist=false;
+        int type;
+        while (true) {
+            System.out.println("Enter course type General (1) Special (2) Back (3)");
+            type=scanner.nextInt();
+            if (type==3){
+                break ;
+            }
+            else if (type==Type.General.type) {
+                j: while (true){
+                    System.out.println("Enter course code Back (1)");
+                    code=scanner.nextInt();
+                    if (code==1){
+                        break ;
+                    }
+                    for (Course i: General_courses.general_courses) {
+                        if (i.code==code){
+                            course_exist=true;
+                           General_courses.general_courses.remove(i);
+                            break j;
+                        }
+                    }
+                    if (!course_exist){
+                        System.out.println("There is no course with this code!!!");
+                    }
+                }
+            } else if (type==Type.Special.type) {
+               j: while (true){
+                System.out.println("Enter course code Back (1)");
+                code=scanner.nextInt();
+                if (code==1){
+                    break ;
+                }
+                    for (Course i: Special_courses.special_courses) {
+                        if (i.code==code){
+                            course_exist=true;
+                            Special_courses.special_courses.remove(i);
+                            break j;
+                        }
+                    }
+                    if (!course_exist){
+                        System.out.println("There is no course with this code!!!");
+                    }
+                }
+            }
+            else {
+                System.out.println("General or Special!!!!");
+            }
+        }
+    }
+    public static void add(){
         String teacher;
         String department;
         int code;
@@ -386,13 +457,5 @@ public class Main {
         Class_time class_time;
         Exam_time exam_time;
         Type type;
-        System.out.println("Enter course type");
-        type= Type.valueOf(scanner.next());
-        if (type==Type.General){
-            System.out.println("Enter course teacher");
-            teacher=scanner.next();
-            System.out.println();
-        }
-
     }
 }
