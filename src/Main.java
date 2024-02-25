@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -470,8 +471,23 @@ public class Main {
                     }
                     System.out.println("Enter course code Back (1)");
                     code = scanner.nextInt();
+                    int counter=0;
+                    String department="";
+                    for (Course i : General_courses.general_courses) {
+                        if ( i.code==code ) {
+                           department= i.department;break ;
+                        }
+                    }
+                    for (Course i : General_courses.general_courses) {
+                        if ( i.department.equals(department )) {
+                           counter++;
+                        }
+                    }
                     if (code == 1) {
                         break;
+                    } else if (counter==1) {
+                        System.out.println("There is only one course in this department!!!!");
+                        break ;
                     }
                     for (Course i : General_courses.general_courses) {
                         if (i.code == code) {
@@ -531,8 +547,23 @@ public class Main {
                     }
                     System.out.println("Enter course code Back (1)");
                     code = scanner.nextInt();
+                    int counter=0;
+                    String department="";
+                    for (Course i : Special_courses.special_courses) {
+                        if ( i.code==code ) {
+                            department= i.department;break ;
+                        }
+                    }
+                    for (Course i : Special_courses.special_courses) {
+                        if ( i.department.equals(department )) {
+                            counter++;
+                        }
+                    }
                     if (code == 1) {
                         break;
+                    } else if (counter==1) {
+                        System.out.println("There is only one course in this department!!!!");
+                        break ;
                     }
                     for (Course i : Special_courses.special_courses) {
                         if (i.code == code) {
@@ -553,13 +584,95 @@ public class Main {
 
     public static void add() {
         String teacher;
+        List<Student> students=new ArrayList<>();
         String department;
         int code;
         String title;
         int capacity;
         int credit;
-        Class_time class_time;
-        Exam_time exam_time;
-        Type type;
+        String day;
+        int start = 0;
+        int finish = 0;
+        String exam_day;
+        int exam_start;
+        int exam_finish;
+        int type;
+        k:while (true){
+            System.out.println("Enter type General (1) Special (2) Back (3)");
+            type=scanner.nextInt();
+            if (type==3){
+                break;
+            }
+            else if (type!=1&&type!=2){
+                System.out.println("Choose between 1 ,2 ,3 !!!!!!");
+                add();
+            }
+            while (true){
+                System.out.println("Enter title Back (1)");
+                title=scanner.next();
+                if (title.equals("1")){
+                    break;
+                }
+                while (true){
+                    System.out.println("Enter teacher Back (1)");
+                    teacher=scanner.next();
+                    if (teacher.equals("1")){
+                        break;
+                    }while (true){
+                        System.out.println("Enter department Back (1)");
+                        department=scanner.next();
+                        if (department.equals("1")){
+                            break;
+                        }
+                        while (true){
+                            System.out.println("Enter code Back (1)");
+                           code=scanner.nextInt();
+                            if (code==1){
+                                break;
+                            }while (true){
+                                System.out.println("Enter capacity Back (1)");
+                                capacity=scanner.nextInt();
+                                if (capacity==1){
+                                    break;
+                                }while (true){
+                                    System.out.println("Enter credit Back (1)");
+                                    credit=scanner.nextInt();
+                                    if (credit==1){
+                                        break;
+                                    }while (true){
+                                        System.out.println("Enter class time Back (1 first)");
+                                        day=scanner.next();
+                                        if (day.equals("1")){
+                                            break;
+                                        }
+                                        start=scanner.nextInt();
+                                        finish=scanner.nextInt();
+                                        while (true){
+                                            System.out.println("Enter exam time Back (1 first)");
+                                            exam_day=scanner.next();
+                                            if (exam_day.equals("1")){
+                                                break;
+                                            }
+                                            exam_start=scanner.nextInt();
+                                            exam_finish=scanner.nextInt();
+                                            if (type==Type.General.type) {
+                                                Course new_course = new General_courses(students, teacher, department, code, title, capacity,credit, new Class_time(day, start, finish), new Exam_time(exam_day, exam_start, exam_finish),Type.General);
+                                                General_courses.general_courses.add(new_course);
+                                                break k;
+                                            }
+                                            else if (type==Type.Special.type) {
+                                                Course new_course = new General_courses(students, teacher, department, code, title, capacity,credit, new Class_time(day, start, finish), new Exam_time(exam_day, exam_start, exam_finish),Type.Special);
+                                                Special_courses.special_courses.add(new_course);
+                                                break k;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
