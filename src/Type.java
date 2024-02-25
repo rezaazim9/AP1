@@ -1,3 +1,3 @@
 public enum Type {
-    General,Specia;
+    General,Special;
 }
