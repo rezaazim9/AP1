@@ -12,7 +12,6 @@ public abstract class Course {
     Class_time class_time;
     Exam_time exam_time;
     Type type;
-    //sdfg
 
     public Course(List<Student> studentList, String teacher, String department, int code, String title, int capacity, int credit, Class_time class_time, Exam_time exam_time, Type type) {
         this.studentList = studentList;
