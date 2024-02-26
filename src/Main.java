@@ -149,14 +149,14 @@ public class Main {
     public static boolean check(Student student, Course course) {
         for (Course i : student.courses) {
             if (i.class_time.weekday.equals(course.class_time.weekday)) {
-                if ((i.class_time.start < course.class_time.end && i.class_time.start > course.class_time.start) || (i.class_time.end < course.class_time.end && i.class_time.end > course.class_time.start)) {
+                if ((i.class_time.start <= course.class_time.end && i.class_time.start >= course.class_time.start) || (i.class_time.end <= course.class_time.end && i.class_time.end >= course.class_time.start)) {
                     return false;
                 }
             }
         }
         for (Course i : student.courses) {
             if (i.exam_time.weekday.equals(course.exam_time.weekday)) {
-                if ((i.exam_time.start < course.exam_time.end && i.exam_time.start > course.exam_time.start) || (i.exam_time.end < course.exam_time.end && i.exam_time.end > course.exam_time.start)) {
+                if ((i.exam_time.start <= course.exam_time.end && i.exam_time.start >= course.exam_time.start) || (i.exam_time.end <= course.exam_time.end && i.exam_time.end >= course.exam_time.start)) {
                     return false;
                 }
             }
@@ -512,6 +512,7 @@ public class Main {
                                     if (k.student_id == student_id) {
                                         student_exist = true;
                                         i.studentList.remove(k);
+                                        k.courses.remove(i);
                                         k.credit += i.credit;
                                         if (i.type.type == 1) {
                                             k.general += i.credit;
