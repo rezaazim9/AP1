@@ -3,6 +3,6 @@ public enum Type {
     int type;
 
     Type(int type) {
-        this.type=type;
+        this.type = type;
     }
 }
