@@ -81,7 +81,7 @@ public class Main {
                     break;
                 }
                 List<Course> student_courses = new ArrayList<>();
-                Student student = new Student(student_id, password, student_courses,0,0);
+                Student student = new Student(student_id, password, student_courses, 0, 0);
                 studentList.add(student);
                 student_menu(student);
             }
@@ -132,11 +132,11 @@ public class Main {
                     System.out.println("No courses");
                 } else {
                     for (Course i : student.courses) {
-                        System.out.println(i.title );
+                        System.out.println(i.title);
                     }
                 }
             } else if (choice == 2) {
-                   register_course(student);
+                register_course(student);
             } else if (choice == 3) {
                 break;
             } else {
@@ -145,84 +145,41 @@ public class Main {
             }
         }
     }
-    public static boolean check(Student student,Course course){
-        for (Course i: student.courses){
-            if (i.class_time.weekday.equals(course.class_time.weekday)){
-                if ((i.class_time.start<course.class_time.end&&i.class_time.start>course.class_time.start)||(i.class_time.end<course.class_time.end&&i.class_time.end>course.class_time.start)){
+
+    public static boolean check(Student student, Course course) {
+        for (Course i : student.courses) {
+            if (i.class_time.weekday.equals(course.class_time.weekday)) {
+                if ((i.class_time.start < course.class_time.end && i.class_time.start > course.class_time.start) || (i.class_time.end < course.class_time.end && i.class_time.end > course.class_time.start)) {
                     return false;
                 }
             }
         }
-        for (Course i: student.courses){
-            if (i.exam_time.weekday.equals(course.exam_time.weekday)){
-                if ((i.exam_time.start<course.exam_time.end&&i.exam_time.start>course.exam_time.start)||(i.exam_time.end<course.exam_time.end&&i.exam_time.end>course.exam_time.start)){
+        for (Course i : student.courses) {
+            if (i.exam_time.weekday.equals(course.exam_time.weekday)) {
+                if ((i.exam_time.start < course.exam_time.end && i.exam_time.start > course.exam_time.start) || (i.exam_time.end < course.exam_time.end && i.exam_time.end > course.exam_time.start)) {
                     return false;
                 }
             }
         }
         return true;
     }
-    public static void register_course(Student student){
-       int choice;
-       int course_choice;
-        while (true){
+
+    public static void register_course(Student student) {
+        int choice;
+        int course_choice;
+        while (true) {
             System.out.println("Choose faculty Maths (1) Physics (2) Computer (3) Chemistry (4) Back (5)");
-            choice=scanner.nextInt();
-            if (choice==5){
-                 break;
-            } else if (choice==1) {
-                for (Course i: Special_courses.special_courses){
-                    if (i.department.equals("Maths")){
+            choice = scanner.nextInt();
+            if (choice == 5) {
+                break;
+            } else if (choice == 1) {
+                for (Course i : Special_courses.special_courses) {
+                    if (i.department.equals("Maths")) {
                         System.out.println("title:" + i.title + " code:" + i.code + " teacher:" + i.teacher + " capacity:" + i.capacity + " number of students:" + i.studentList.size() + " credit:" + i.credit + " day:" + i.class_time.weekday + " start:" + i.class_time.start + " end:" + i.class_time.end + " exam day:" + i.exam_time.weekday + " start:" + i.exam_time.start + " end:" + i.exam_time.end + " type:" + i.type);
                     }
                 }
-                for (Course i: General_courses.general_courses){
-                    if (i.department.equals("Maths")){
-                        System.out.println("title:" + i.title + " code:" + i.code + " teacher:" + i.teacher + " capacity:" + i.capacity + " number of students:" + i.studentList.size() + " credit:" + i.credit + " day:" + i.class_time.weekday + " start:" + i.class_time.start + " end:" + i.class_time.end + " exam day:" + i.exam_time.weekday + " start:" + i.exam_time.start + " end:" + i.exam_time.end + " type:" + i.type);
-                    }
-                }
-                while (true) {
-                    System.out.println("Enter course code Back(1)");
-                    course_choice = scanner.nextInt();
-                    if (course_choice == 1) {
-                        break;
-                    }
-                    for (Course i : General_courses.general_courses) {
-                        if (i.code == course_choice) {
-                            student.credit += i.credit;
-                            student.general += i.credit;
-                            if (student.general > 5 || student.credit > 20||!check(student,i)) {
-                                System.out.println("Invalid");
-                                student.credit -= i.credit;
-                                student.general -= i.credit;
-
-                            } else {
-                                student.courses.add(i);
-                                i.studentList.add(student);
-                            }
-                        }
-                    }
-                    for (Course i : Special_courses.special_courses) {
-                        if (i.code == course_choice) {
-                            student.credit += i.credit;
-                            if (student.general > 5 || student.credit > 20||!check(student,i)) {
-                                System.out.println("Invalid");
-                                student.credit -= i.credit;
-                            } else {
-                                student.courses.add(i);
-                                i.studentList.add(student);
-                            }
-                        }
-                    }
-                }
-            } else if (choice==2) {
-                for (Course i: Special_courses.special_courses){
-                    if (i.department.equals("Physics")){
-                        System.out.println("title:" + i.title + " code:" + i.code + " teacher:" + i.teacher + " capacity:" + i.capacity + " number of students:" + i.studentList.size() + " credit:" + i.credit + " day:" + i.class_time.weekday + " start:" + i.class_time.start + " end:" + i.class_time.end + " exam day:" + i.exam_time.weekday + " start:" + i.exam_time.start + " end:" + i.exam_time.end + " type:" + i.type);
-                    }
-                }
-                for (Course i: General_courses.general_courses){
-                    if (i.department.equals("Physics")){
+                for (Course i : General_courses.general_courses) {
+                    if (i.department.equals("Maths")) {
                         System.out.println("title:" + i.title + " code:" + i.code + " teacher:" + i.teacher + " capacity:" + i.capacity + " number of students:" + i.studentList.size() + " credit:" + i.credit + " day:" + i.class_time.weekday + " start:" + i.class_time.start + " end:" + i.class_time.end + " exam day:" + i.exam_time.weekday + " start:" + i.exam_time.start + " end:" + i.exam_time.end + " type:" + i.type);
                     }
                 }
@@ -236,7 +193,7 @@ public class Main {
                         if (i.code == course_choice) {
                             student.credit += i.credit;
                             student.general += i.credit;
-                            if (student.general > 5 || student.credit > 20||!check(student,i)) {
+                            if (student.general > 5 || student.credit > 20 || !check(student, i)) {
                                 System.out.println("Invalid");
                                 student.credit -= i.credit;
                                 student.general -= i.credit;
@@ -250,7 +207,7 @@ public class Main {
                     for (Course i : Special_courses.special_courses) {
                         if (i.code == course_choice) {
                             student.credit += i.credit;
-                            if (student.general > 5 || student.credit > 20||!check(student,i)) {
+                            if (student.general > 5 || student.credit > 20 || !check(student, i)) {
                                 System.out.println("Invalid");
                                 student.credit -= i.credit;
                             } else {
@@ -260,14 +217,14 @@ public class Main {
                         }
                     }
                 }
-            }else if (choice==3){
-                for (Course i: Special_courses.special_courses){
-                    if (i.department.equals("Computer")){
+            } else if (choice == 2) {
+                for (Course i : Special_courses.special_courses) {
+                    if (i.department.equals("Physics")) {
                         System.out.println("title:" + i.title + " code:" + i.code + " teacher:" + i.teacher + " capacity:" + i.capacity + " number of students:" + i.studentList.size() + " credit:" + i.credit + " day:" + i.class_time.weekday + " start:" + i.class_time.start + " end:" + i.class_time.end + " exam day:" + i.exam_time.weekday + " start:" + i.exam_time.start + " end:" + i.exam_time.end + " type:" + i.type);
                     }
                 }
-                for (Course i: General_courses.general_courses){
-                    if (i.department.equals("Computer")){
+                for (Course i : General_courses.general_courses) {
+                    if (i.department.equals("Physics")) {
                         System.out.println("title:" + i.title + " code:" + i.code + " teacher:" + i.teacher + " capacity:" + i.capacity + " number of students:" + i.studentList.size() + " credit:" + i.credit + " day:" + i.class_time.weekday + " start:" + i.class_time.start + " end:" + i.class_time.end + " exam day:" + i.exam_time.weekday + " start:" + i.exam_time.start + " end:" + i.exam_time.end + " type:" + i.type);
                     }
                 }
@@ -281,7 +238,7 @@ public class Main {
                         if (i.code == course_choice) {
                             student.credit += i.credit;
                             student.general += i.credit;
-                            if (student.general > 5 || student.credit > 20||!check(student,i)) {
+                            if (student.general > 5 || student.credit > 20 || !check(student, i)) {
                                 System.out.println("Invalid");
                                 student.credit -= i.credit;
                                 student.general -= i.credit;
@@ -295,7 +252,7 @@ public class Main {
                     for (Course i : Special_courses.special_courses) {
                         if (i.code == course_choice) {
                             student.credit += i.credit;
-                            if (student.general > 5 || student.credit > 20||!check(student,i)) {
+                            if (student.general > 5 || student.credit > 20 || !check(student, i)) {
                                 System.out.println("Invalid");
                                 student.credit -= i.credit;
                             } else {
@@ -305,14 +262,14 @@ public class Main {
                         }
                     }
                 }
-            } else if (choice==4) {
-                for (Course i: Special_courses.special_courses){
-                    if (i.department.equals("Chemistry")){
+            } else if (choice == 3) {
+                for (Course i : Special_courses.special_courses) {
+                    if (i.department.equals("Computer")) {
                         System.out.println("title:" + i.title + " code:" + i.code + " teacher:" + i.teacher + " capacity:" + i.capacity + " number of students:" + i.studentList.size() + " credit:" + i.credit + " day:" + i.class_time.weekday + " start:" + i.class_time.start + " end:" + i.class_time.end + " exam day:" + i.exam_time.weekday + " start:" + i.exam_time.start + " end:" + i.exam_time.end + " type:" + i.type);
                     }
                 }
-                for (Course i: General_courses.general_courses){
-                    if (i.department.equals("Chemistry")){
+                for (Course i : General_courses.general_courses) {
+                    if (i.department.equals("Computer")) {
                         System.out.println("title:" + i.title + " code:" + i.code + " teacher:" + i.teacher + " capacity:" + i.capacity + " number of students:" + i.studentList.size() + " credit:" + i.credit + " day:" + i.class_time.weekday + " start:" + i.class_time.start + " end:" + i.class_time.end + " exam day:" + i.exam_time.weekday + " start:" + i.exam_time.start + " end:" + i.exam_time.end + " type:" + i.type);
                     }
                 }
@@ -326,7 +283,7 @@ public class Main {
                         if (i.code == course_choice) {
                             student.credit += i.credit;
                             student.general += i.credit;
-                            if (student.general > 5 || student.credit > 20||!check(student,i)) {
+                            if (student.general > 5 || student.credit > 20 || !check(student, i)) {
                                 System.out.println("Invalid");
                                 student.credit -= i.credit;
                                 student.general -= i.credit;
@@ -340,7 +297,52 @@ public class Main {
                     for (Course i : Special_courses.special_courses) {
                         if (i.code == course_choice) {
                             student.credit += i.credit;
-                            if (student.general > 5 || student.credit > 20||!check(student,i)) {
+                            if (student.general > 5 || student.credit > 20 || !check(student, i)) {
+                                System.out.println("Invalid");
+                                student.credit -= i.credit;
+                            } else {
+                                student.courses.add(i);
+                                i.studentList.add(student);
+                            }
+                        }
+                    }
+                }
+            } else if (choice == 4) {
+                for (Course i : Special_courses.special_courses) {
+                    if (i.department.equals("Chemistry")) {
+                        System.out.println("title:" + i.title + " code:" + i.code + " teacher:" + i.teacher + " capacity:" + i.capacity + " number of students:" + i.studentList.size() + " credit:" + i.credit + " day:" + i.class_time.weekday + " start:" + i.class_time.start + " end:" + i.class_time.end + " exam day:" + i.exam_time.weekday + " start:" + i.exam_time.start + " end:" + i.exam_time.end + " type:" + i.type);
+                    }
+                }
+                for (Course i : General_courses.general_courses) {
+                    if (i.department.equals("Chemistry")) {
+                        System.out.println("title:" + i.title + " code:" + i.code + " teacher:" + i.teacher + " capacity:" + i.capacity + " number of students:" + i.studentList.size() + " credit:" + i.credit + " day:" + i.class_time.weekday + " start:" + i.class_time.start + " end:" + i.class_time.end + " exam day:" + i.exam_time.weekday + " start:" + i.exam_time.start + " end:" + i.exam_time.end + " type:" + i.type);
+                    }
+                }
+                while (true) {
+                    System.out.println("Enter course code Back(1)");
+                    course_choice = scanner.nextInt();
+                    if (course_choice == 1) {
+                        break;
+                    }
+                    for (Course i : General_courses.general_courses) {
+                        if (i.code == course_choice) {
+                            student.credit += i.credit;
+                            student.general += i.credit;
+                            if (student.general > 5 || student.credit > 20 || !check(student, i)) {
+                                System.out.println("Invalid");
+                                student.credit -= i.credit;
+                                student.general -= i.credit;
+
+                            } else {
+                                student.courses.add(i);
+                                i.studentList.add(student);
+                            }
+                        }
+                    }
+                    for (Course i : Special_courses.special_courses) {
+                        if (i.code == course_choice) {
+                            student.credit += i.credit;
+                            if (student.general > 5 || student.credit > 20 || !check(student, i)) {
                                 System.out.println("Invalid");
                                 student.credit -= i.credit;
                             } else {
@@ -480,16 +482,16 @@ public class Main {
                                 for (Student k : studentList) {
                                     if (k.student_id == student_id) {
                                         student_exist = true;
-                                        k.credit+=i.credit;
-                                        k.general+=i.credit;
-                                        if (i.studentList.size() < i.capacity&&k.credit<=20&&k.general<=5&&check(k,i)) {
+                                        k.credit += i.credit;
+                                        k.general += i.credit;
+                                        if (i.studentList.size() < i.capacity && k.credit <= 20 && k.general <= 5 && check(k, i)) {
                                             i.studentList.add(k);
                                             k.courses.add(i);
 
                                         } else {
                                             System.out.println("Invalid");
-                                            k.credit-=i.credit;
-                                            k.general-=i.credit;
+                                            k.credit -= i.credit;
+                                            k.general -= i.credit;
                                         }
                                         break j;
                                     }
@@ -510,9 +512,9 @@ public class Main {
                                     if (k.student_id == student_id) {
                                         student_exist = true;
                                         i.studentList.remove(k);
-                                        k.credit+=i.credit;
-                                        if (i.type.type==1){
-                                            k.general+=i.credit;
+                                        k.credit += i.credit;
+                                        if (i.type.type == 1) {
+                                            k.general += i.credit;
                                         }
                                         break j;
                                     }
@@ -795,8 +797,8 @@ public class Main {
         int capacity;
         int credit;
         String day;
-        int start = 0;
-        int finish = 0;
+        int start ;
+        int finish ;
         String exam_day;
         int exam_start;
         int exam_finish;

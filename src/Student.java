@@ -7,11 +7,11 @@ public class Student {
     int credit;
     List<Course> courses;
 
-    public Student(int student_id, int password, List<Course> courses,int credit,int general) {
+    public Student(int student_id, int password, List<Course> courses, int credit, int general) {
         this.password = password;
         this.student_id = student_id;
         this.courses = courses;
-        this.general=general;
-        this.credit=credit;
+        this.general = general;
+        this.credit = credit;
     }
 }
