@@ -128,32 +128,15 @@ public class Main {
             System.out.println("My courses (1) Courses list (2) Back (3)");
             choice = scanner.nextInt();
             if (choice == 1) {
-                if (student.courses == null) {
+                if (student.courses.isEmpty()) {
                     System.out.println("No courses");
                 } else {
                     for (Course i : student.courses) {
-                        System.out.print(i.title + " ");
+                        System.out.println(i.title );
                     }
                 }
             } else if (choice == 2) {
-                int choice_faculty;
-                while (true) {
-                    System.out.println("Choose faculty Maths (1) Physics (2) Computer (3) Chemistry (4) Back (5)");
-                    choice_faculty = scanner.nextInt();
-                    if (choice_faculty == 5) {
-                        break;
-                    } else if (choice_faculty == 1) {
-register_course(student);
-                    } else if (choice_faculty == 2) {
-                        register_course(student);
-                    } else if (choice_faculty == 3) {
-                        register_course(student);
-                    } else if (choice_faculty == 4) {
-                        register_course(student);
-                    } else {
-                        System.out.println("Choose between 1 ,2 ,3 ,4 ,5 !!!!!!");
-                    }
-                }
+                   register_course(student);
             } else if (choice == 3) {
                 break;
             } else {
@@ -162,7 +145,23 @@ register_course(student);
             }
         }
     }
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public static boolean check(Student student,Course course){
+        for (Course i: student.courses){
+            if (i.class_time.weekday.equals(course.class_time.weekday)){
+                if ((i.class_time.start<course.class_time.end&&i.class_time.start>course.class_time.start)||(i.class_time.end<course.class_time.end&&i.class_time.end>course.class_time.start)){
+                    return false;
+                }
+            }
+        }
+        for (Course i: student.courses){
+            if (i.exam_time.weekday.equals(course.exam_time.weekday)){
+                if ((i.exam_time.start<course.exam_time.end&&i.exam_time.start>course.exam_time.start)||(i.exam_time.end<course.exam_time.end&&i.exam_time.end>course.exam_time.start)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
     public static void register_course(Student student){
        int choice;
        int course_choice;
@@ -192,7 +191,7 @@ register_course(student);
                         if (i.code == course_choice) {
                             student.credit += i.credit;
                             student.general += i.credit;
-                            if (student.general > 5 || student.credit > 20) {
+                            if (student.general > 5 || student.credit > 20||!check(student,i)) {
                                 System.out.println("Invalid");
                                 student.credit -= i.credit;
                                 student.general -= i.credit;
@@ -206,7 +205,7 @@ register_course(student);
                     for (Course i : Special_courses.special_courses) {
                         if (i.code == course_choice) {
                             student.credit += i.credit;
-                            if (student.general > 5 || student.credit > 20) {
+                            if (student.general > 5 || student.credit > 20||!check(student,i)) {
                                 System.out.println("Invalid");
                                 student.credit -= i.credit;
                             } else {
@@ -237,7 +236,7 @@ register_course(student);
                         if (i.code == course_choice) {
                             student.credit += i.credit;
                             student.general += i.credit;
-                            if (student.general > 5 || student.credit > 20) {
+                            if (student.general > 5 || student.credit > 20||!check(student,i)) {
                                 System.out.println("Invalid");
                                 student.credit -= i.credit;
                                 student.general -= i.credit;
@@ -251,7 +250,7 @@ register_course(student);
                     for (Course i : Special_courses.special_courses) {
                         if (i.code == course_choice) {
                             student.credit += i.credit;
-                            if (student.general > 5 || student.credit > 20) {
+                            if (student.general > 5 || student.credit > 20||!check(student,i)) {
                                 System.out.println("Invalid");
                                 student.credit -= i.credit;
                             } else {
@@ -282,7 +281,7 @@ register_course(student);
                         if (i.code == course_choice) {
                             student.credit += i.credit;
                             student.general += i.credit;
-                            if (student.general > 5 || student.credit > 20) {
+                            if (student.general > 5 || student.credit > 20||!check(student,i)) {
                                 System.out.println("Invalid");
                                 student.credit -= i.credit;
                                 student.general -= i.credit;
@@ -296,7 +295,7 @@ register_course(student);
                     for (Course i : Special_courses.special_courses) {
                         if (i.code == course_choice) {
                             student.credit += i.credit;
-                            if (student.general > 5 || student.credit > 20) {
+                            if (student.general > 5 || student.credit > 20||!check(student,i)) {
                                 System.out.println("Invalid");
                                 student.credit -= i.credit;
                             } else {
@@ -327,7 +326,7 @@ register_course(student);
                         if (i.code == course_choice) {
                             student.credit += i.credit;
                             student.general += i.credit;
-                            if (student.general > 5 || student.credit > 20) {
+                            if (student.general > 5 || student.credit > 20||!check(student,i)) {
                                 System.out.println("Invalid");
                                 student.credit -= i.credit;
                                 student.general -= i.credit;
@@ -341,7 +340,7 @@ register_course(student);
                     for (Course i : Special_courses.special_courses) {
                         if (i.code == course_choice) {
                             student.credit += i.credit;
-                            if (student.general > 5 || student.credit > 20) {
+                            if (student.general > 5 || student.credit > 20||!check(student,i)) {
                                 System.out.println("Invalid");
                                 student.credit -= i.credit;
                             } else {
@@ -483,7 +482,7 @@ register_course(student);
                                         student_exist = true;
                                         k.credit+=i.credit;
                                         k.general+=i.credit;
-                                        if (i.studentList.size() < i.capacity&&k.credit<=20&&k.general<=5) {
+                                        if (i.studentList.size() < i.capacity&&k.credit<=20&&k.general<=5&&check(k,i)) {
                                             i.studentList.add(k);
                                             k.courses.add(i);
 
