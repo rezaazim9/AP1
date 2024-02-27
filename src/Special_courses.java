@@ -6,6 +6,7 @@ public class Special_courses extends Course {
         super(studentList, teacher, department, code, title, capacity, credit, class_time, exam_time, type);
     }
 
+
     static List<Course> special_courses = new ArrayList<>();
 
     public static void add() {

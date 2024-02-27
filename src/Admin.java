@@ -1,8 +1,8 @@
 public class Admin {
     String username;
-    int password;
+    String password;
 
-    public Admin(String username, int password) {
+    public Admin(String username, String password) {
         this.username = username;
         this.password = password;
     }
