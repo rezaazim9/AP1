@@ -64,7 +64,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         String admin_password;
-        Special_courses.add();
+       Special_courses.add();
         General_courses.add();
         Fileclass.add();
         Scanner file_scanner = new Scanner(obj);
@@ -173,15 +173,15 @@ public class Main {
 
     public static boolean check(Student student, Course course) {
         for (Course i : student.courses) {
-            if (i.class_time.weekday.equals(course.class_time.weekday)) {
-                if ((i.class_time.start <= course.class_time.end && i.class_time.start >= course.class_time.start) || (i.class_time.end <= course.class_time.end && i.class_time.end >= course.class_time.start)) {
+            if (i.code==course.code){
+                return false;
+            } else if (course.class_time.weekday.equals(i.class_time.weekday)) {
+                if ((course.class_time.start < i.class_time.end && course.class_time.start > i.class_time.start) || (course.class_time.end < i.class_time.end && course.class_time.end > i.class_time.start)) {
                     return false;
                 }
             }
-        }
-        for (Course i : student.courses) {
-            if (i.exam_time.weekday.equals(course.exam_time.weekday)) {
-                if ((i.exam_time.start <= course.exam_time.end && i.exam_time.start >= course.exam_time.start) || (i.exam_time.end <= course.exam_time.end && i.exam_time.end >= course.exam_time.start)) {
+            else if (course.exam_time.weekday.equals(i.exam_time.weekday)) {
+                if ((course.exam_time.start < i.exam_time.end && course.exam_time.start > i.exam_time.start) || (course.exam_time.end < i.exam_time.end && course.exam_time.end > i.exam_time.start)) {
                     return false;
                 }
             }
@@ -232,29 +232,15 @@ public class Main {
                 }
             } else if (choice_register == 1) {
                 while (true) {
+                    boolean exist=false;
                     System.out.println("Enter course code Back(1)");
                     course_choice = scanner.nextInt();
                     if (course_choice == 1) {
                         break;
                     }
-                    for (Course i : General_courses.general_courses) {
-                        if (i.code == course_choice) {
-                            student.credit += i.credit;
-                            student.general += i.credit;
-                            if (student.general > 5 || student.credit > 20 || !check(student, i)) {
-                                System.out.println("Invalid");
-                                student.credit -= i.credit;
-                                student.general -= i.credit;
-
-                            } else {
-                                student.courses.add(i);
-                                i.studentList.add(student);
-                                Fileclass.add();
-                            }
-                        }
-                    }
                     for (Course i : Special_courses.special_courses) {
                         if (i.code == course_choice) {
+                            exist=true;
                             student.credit += i.credit;
                             if (student.general > 5 || student.credit > 20 || !check(student, i)) {
                                 System.out.println("Invalid");
@@ -264,7 +250,25 @@ public class Main {
                                 i.studentList.add(student);
                                 Fileclass.add();
                             }
+                            break;
                         }
+                    }
+                    for (Course i : General_courses.general_courses) {
+                        if (i.code == course_choice) {
+                            exist=true;
+                            student.credit += i.credit;
+                            if (student.general > 5 || student.credit > 20 || !check(student, i)) {
+                                System.out.println("Invalid");
+                                student.credit -= i.credit;
+                            } else {
+                                i.studentList.add(student);
+                                student.courses.add(i);
+                                Fileclass.add();
+                            }
+                            break;
+                        }
+                    }if (!exist){
+                        System.out.println("There is no course with this code");
                     }
                 }
             } else {
