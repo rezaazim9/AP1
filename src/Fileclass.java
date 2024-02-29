@@ -11,17 +11,9 @@ public class Fileclass {
         Scanner scanner = new Scanner(obj);
         while (scanner.hasNextLine()) {
             String student= scanner.nextLine();
-            String course_general = scanner.nextLine();
-            String course_special = scanner.nextLine();
-            if (student.contains("student")) {
-                String student_id = student.substring(student.indexOf("Title:") + 6, student.indexOf(" Teacher"));
-                String password = student.substring(student.indexOf("Teacher:") + 8, student.indexOf(" Department"));
-                String credit = student.substring(student.indexOf("Department:") + 11, student.indexOf(" code"));
-                String general = student.substring(student.indexOf("code:") + 5, student.indexOf(" Capacity"));
-                List<Course> courses = new ArrayList<>();
-                Main.studentList.add(new Student(Integer.parseInt(student_id), Integer.parseInt(password), courses, Integer.parseInt(credit), Integer.parseInt(general)));
-            }
-            if (course_special.contains("General")) {
+            String course_general =student;
+            String course_special =student;
+           if (course_special.contains("Special")) {
                 List<Student> students = new ArrayList<>();
                 String title = course_special.substring(course_special.indexOf("Title:") + 6, course_special.indexOf(" Teacher"));
                 String teacher = course_special.substring(course_special.indexOf("Teacher:") + 8, course_special.indexOf(" Department"));
@@ -37,8 +29,7 @@ public class Fileclass {
                 String exam_end = course_special.substring(course_special.indexOf("end:") + 4, course_special.indexOf(" Student"));
                 Special_courses.special_courses.add(new Special_courses(students, teacher, department, Integer.parseInt(code), title, Integer.parseInt(capacity), Integer.parseInt(credit), new Class_time(day, Integer.parseInt(day_start), Integer.parseInt(day_end)), new Exam_time(exam, Integer.parseInt(exam_start), Integer.parseInt(exam_end)), Type.Special));
             }
-
-            if (course_general.contains("General")) {
+            else if (course_general.contains("Type: General")) {
                 List<Student> students = new ArrayList<>();
                 String title = course_general.substring(course_general.indexOf("Title:") + 6, course_general.indexOf(" Teacher"));
                 String teacher = course_general.substring(course_general.indexOf("Teacher:") + 8, course_general.indexOf(" Department"));
@@ -54,6 +45,28 @@ public class Fileclass {
                 String exam_end = course_general.substring(course_general.indexOf("end:") + 4, course_general.indexOf(" Student"));
                 General_courses.general_courses.add(new Special_courses(students, teacher, department, Integer.parseInt(code), title, Integer.parseInt(capacity), Integer.parseInt(credit), new Class_time(day, Integer.parseInt(day_start), Integer.parseInt(day_end)), new Exam_time(exam, Integer.parseInt(exam_start), Integer.parseInt(exam_end)), Type.General));
             }
+           else if (student.contains("student")) {
+               String student_id = student.substring(student.indexOf("student id:") + 11, student.indexOf(" password"));
+               String password = student.substring(student.indexOf("password:") + 9, student.indexOf(" credit"));
+               String credit = student.substring(student.indexOf("credit:") + 7, student.indexOf(" general credit"));
+               String general = student.substring(student.indexOf("general credit:") + 15, student.indexOf(" courses"));
+               List<Course> courses = new ArrayList<>();
+               for (Course i: Special_courses.special_courses){
+                   if (i.title.equals(student.substring(student.indexOf("Title:")+6,student.indexOf(" Code")))){
+                       courses.add(i);
+                   }
+               } for (Course i: General_courses.general_courses){
+                   if (i.title.equals(student.substring(student.indexOf("Title:")+6,student.indexOf(" Code")))){
+                       courses.add(i);
+                   }
+               }
+              Student student1=new Student(Integer.parseInt(student_id), Integer.parseInt(password), courses, Integer.parseInt(credit), Integer.parseInt(general));
+
+               Main.studentList.add(new Student(Integer.parseInt(student_id), Integer.parseInt(password), courses, Integer.parseInt(credit), Integer.parseInt(general)));
+              for (Course i:student1.courses){
+                  System.out.println(i.code);
+              }
+           }
         }
     }
 
@@ -81,7 +94,7 @@ public class Fileclass {
             for (Student j : i.studentList) {
                 students += " student id:" + j.student_id;
             }
-            writer.write("Type: General"+"Title:" + i.title + " Teacher:" + i.teacher + " Department:" + i.department + " code:" + i.code + " Capacity:" + i.capacity + " Credit:" + i.credit + " Day:" + i.class_time.weekday + " Start:" + i.class_time.start + " End:" + i.class_time.end + " Exam Day:" + i.exam_time.weekday + " start:" + i.exam_time.start + " end:" + i.exam_time.end + " Students:" + students + "\n");
+            writer.write("Type: General"+" Title:" + i.title + " Teacher:" + i.teacher + " Department:" + i.department + " code:" + i.code + " Capacity:" + i.capacity + " Credit:" + i.credit + " Day:" + i.class_time.weekday + " Start:" + i.class_time.start + " End:" + i.class_time.end + " Exam Day:" + i.exam_time.weekday + " start:" + i.exam_time.start + " end:" + i.exam_time.end + " Students:" + students + "\n");
         }
         writer.flush();
         writer.close();

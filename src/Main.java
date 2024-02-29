@@ -185,13 +185,13 @@ public class Main {
         for (Course i : student.courses) {
             if (i.code==course.code){
                 return false;
-            } else if (course.class_time.weekday.equals(i.class_time.weekday)) {
-                if ((course.class_time.start < i.class_time.end && course.class_time.start > i.class_time.start) || (course.class_time.end < i.class_time.end && course.class_time.end > i.class_time.start)) {
+            } if (course.class_time.weekday.equals(i.class_time.weekday)) {
+                if ((course.class_time.start <= i.class_time.end && course.class_time.start >= i.class_time.start) || (course.class_time.end <= i.class_time.end && course.class_time.end >= i.class_time.start)) {
                     return false;
                 }
             }
-            else if (course.exam_time.weekday.equals(i.exam_time.weekday)) {
-                if ((course.exam_time.start < i.exam_time.end && course.exam_time.start > i.exam_time.start) || (course.exam_time.end < i.exam_time.end && course.exam_time.end > i.exam_time.start)) {
+             if (course.exam_time.weekday.equals(i.exam_time.weekday)) {
+                if ((course.exam_time.start <= i.exam_time.end && course.exam_time.start >= i.exam_time.start) || (course.exam_time.end <= i.exam_time.end && course.exam_time.end >= i.exam_time.start)) {
                     return false;
                 }
             }
@@ -256,8 +256,8 @@ public class Main {
                                 System.out.println("Invalid");
                                 student.credit -= i.credit;
                             } else {
-                                student.courses.add(i);
                                 i.studentList.add(student);
+                                student.courses.add(i);
                                 Fileclass.add();
                             }
                             break;
@@ -267,9 +267,11 @@ public class Main {
                         if (i.code == course_choice) {
                             exist=true;
                             student.credit += i.credit;
+                            student.general+= i.credit;
                             if (student.general > 5 || student.credit > 20 || !check(student, i)) {
                                 System.out.println("Invalid");
                                 student.credit -= i.credit;
+                                student.general-= i.credit;
                             } else {
                                 i.studentList.add(student);
                                 student.courses.add(i);

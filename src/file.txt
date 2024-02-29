@@ -1,6 +1,4 @@
 AdminPassword=123
-student id:123 password:123 credit:0 general credit:0 courses:
-student id:12 password:123 credit:0 general credit:0 courses:
 Type: Special Title:General Mathematics I Teacher:Abas Department:Maths code:101 Capacity:6 Credit:4 Day:shanbe Start:1 End:3 Exam Day:3_khordad start:2 end:5 Students:
 Type: Special Title:General Mathematics II Teacher:Babak Department:Maths code:102 Capacity:3 Credit:4 Day:shanbe Start:4 End:5 Exam Day:3_khordad start:1 end:4 Students:
 Type: Special Title:General Physics I Teacher:Cina Department:Physics code:201 Capacity:6 Credit:3 Day:yek_shanbe Start:1 End:3 Exam Day:5_khordad start:2 end:5 Students:
@@ -9,7 +7,7 @@ Type: Special Title:Basic Programming Teacher:Ebrahim Department:Computer code:3
 Type: Special Title:Advance Programming Teacher:Farid Department:Computer code:302 Capacity:3 Credit:4 Day:yek_shanbe Start:5 End:6 Exam Day:6_khordad start:2 end:5 Students:
 Type: Special Title:General Chemistry I Teacher:Gol Department:Chemistry code:401 Capacity:6 Credit:3 Day:yek_shanbe Start:2 End:4 Exam Day:2_khordad start:2 end:5 Students:
 Type: Special Title:General Chemistry II Teacher:Hamid Department:Chemistry code:402 Capacity:3 Credit:3 Day:shanbe Start:4 End:6 Exam Day:1_khordad start:2 end:5 Students:
-Type: GeneralTitle:Andishe I Teacher:Iman Department:Maths code:100 Capacity:3 Credit:2 Day:do_shanbe Start:1 End:3 Exam Day:3_khordad start:1 end:2 Students:
-Type: GeneralTitle:Andishe II Teacher:Javad Department:Physics code:200 Capacity:3 Credit:2 Day:se_shanbe Start:6 End:7 Exam Day:3_khordad start:3 end:4 Students:
-Type: GeneralTitle:Andishe III Teacher:Kambiz Department:Computer code:300 Capacity:3 Credit:2 Day:do_shanbe Start:5 End:6 Exam Day:6_khordad start:4 end:5 Students:
-Type: GeneralTitle:Andishe IIII Teacher:Leyla Department:Chemistry code:400 Capacity:3 Credit:2 Day:se_shanbe Start:2 End:4 Exam Day:2_khordad start:4 end:5 Students:
+Type: General Title:Andishe I Teacher:Iman Department:Maths code:100 Capacity:3 Credit:2 Day:do_shanbe Start:1 End:3 Exam Day:3_khordad start:1 end:2 Students:
+Type: General Title:Andishe II Teacher:Javad Department:Physics code:200 Capacity:3 Credit:2 Day:se_shanbe Start:6 End:7 Exam Day:3_khordad start:3 end:4 Students:
+Type: General Title:Andishe III Teacher:Kambiz Department:Computer code:300 Capacity:3 Credit:2 Day:do_shanbe Start:5 End:6 Exam Day:6_khordad start:4 end:5 Students:
+Type: General Title:Andishe IIII Teacher:Leyla Department:Chemistry code:400 Capacity:3 Credit:2 Day:se_shanbe Start:2 End:4 Exam Day:2_khordad start:4 end:5 Students:
