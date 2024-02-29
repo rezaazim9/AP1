@@ -91,21 +91,31 @@ public class Main {
 
     public static void student_sign_up() throws IOException {
         while (true) {
+            boolean student_exist = false;
             System.out.println("Please enter your student ID Back(1)");
             int student_id = scanner.nextInt();
             if (student_id == 1) {
                 break;
             }
-            while (true) {
-                System.out.println("Please enter your password (only numbers!!) Back(1)");
-                int password = scanner.nextInt();
-                if (password == 1) {
+            for (Student i : studentList) {
+                if (i.student_id == student_id) {
+                    System.out.println("This id is already exist!!!!");
+                    student_exist = true;
                     break;
                 }
-                List<Course> student_courses = new ArrayList<>();
-                Student student = new Student(student_id, password, student_courses, 0, 0);
-                studentList.add(student);
-                student_menu(student);
+            }
+            if (!student_exist) {
+                while (true) {
+                    System.out.println("Please enter your password (only numbers!!) Back(1)");
+                    int password = scanner.nextInt();
+                    if (password == 1) {
+                        break;
+                    }
+                    List<Course> student_courses = new ArrayList<>();
+                    Student student = new Student(student_id, password, student_courses, 0, 0);
+                    studentList.add(student);
+                    student_menu(student);
+                }
             }
         }
     }
@@ -675,6 +685,9 @@ public class Main {
                         if (i.code == code) {
                             course_exist = true;
                             General_courses.general_courses.remove(i);
+                            for (Student j:studentList){
+                                j.courses.remove(i);
+                            }
                             Fileclass.add();
                             break j;
                         }
@@ -753,6 +766,9 @@ public class Main {
                         if (i.code == code) {
                             course_exist = true;
                             Special_courses.special_courses.remove(i);
+                            for (Student j:studentList){
+                                j.courses.remove(i);
+                            }
                             Fileclass.add();
                             break j;
                         }
