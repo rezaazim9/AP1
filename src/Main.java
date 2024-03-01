@@ -3,21 +3,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.io.File;
 
 public class Main {
-    static File obj = new File("/home/reza/IdeaProjects/untitled/src/file.txt");
-    static FileWriter writer;
-
-    static {
-        try {
-            writer = new FileWriter("/home/reza/IdeaProjects/untitled/src/file.txt");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    ;
     static Admin admin;
     static ArrayList<Student> studentList = new ArrayList<>();
     static Scanner scanner = new Scanner(System.in);
@@ -63,13 +50,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        String admin_password;
-       Special_courses.add();
-        General_courses.add();
-        Fileclass.add();
-        Scanner file_scanner = new Scanner(obj);
-        admin_password = file_scanner.next().substring(14);
-        admin = new Admin("Admin", admin_password);
+        Fileclass.read();
         main_menu();
     }
 
