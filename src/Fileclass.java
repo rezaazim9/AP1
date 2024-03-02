@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Fileclass {
+
     public static void read() throws IOException {
         File obj = new File("/home/reza/IdeaProjects/untitled/src/file.txt");
         Scanner scanner = new Scanner(obj);
@@ -80,7 +81,6 @@ public class Fileclass {
            }
         }
     }
-
     public static void add() throws IOException {
         FileWriter writer = new FileWriter("/home/reza/IdeaProjects/untitled/src/file.txt");
         writer.write("AdminPassword=123\n");
