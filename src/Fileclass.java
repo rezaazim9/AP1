@@ -56,20 +56,20 @@ public class Fileclass {
                List<Course> courses = new ArrayList<>();
                for (Course i: Special_courses.special_courses) {
                    int index = 0;
-                   while (obj_scanner.indexOf("Code:", index) != -1) {
+                   while (obj_scanner.indexOf("Title:", index) != -1) {
                        if (i.code==Integer.parseInt(obj_scanner.substring(obj_scanner.indexOf("Code:",index) + 5,obj_scanner.indexOf(" Title:",index) ))) {
                            courses.add(i);
                        }
-                       index=obj_scanner.indexOf("Code:", index)+5;
+                       index=obj_scanner.indexOf("Title:", index)+1;
                    }
                }
                for (Course i: General_courses.general_courses){
                    int index = 0;
-                   while (obj_scanner.indexOf("Code:", index) != -1) {
+                   while (obj_scanner.indexOf("Title:", index) != -1) {
                        if (i.code==Integer.parseInt(obj_scanner.substring(obj_scanner.indexOf("Code:",index) + 5,obj_scanner.indexOf(" Title:",index) ))) {
                            courses.add(i);
                        }
-                       index=obj_scanner.indexOf("Code:", index)+5;
+                       index=obj_scanner.indexOf("Title:", index)+1;
                    }
                }
                Main.studentList.add(new Student(Integer.parseInt(student_id), Integer.parseInt(password), courses, Integer.parseInt(credit), Integer.parseInt(general)));
