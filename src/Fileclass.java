@@ -84,20 +84,21 @@ public class Fileclass {
     public static void add() throws IOException {
         FileWriter writer = new FileWriter("/home/reza/IdeaProjects/untitled/src/file.txt");
         writer.write("AdminPassword=123\n");
-        int counter = 0;
-
         for (Course i : Special_courses.special_courses) {
             StringBuilder students = new StringBuilder();
+            int counter = 0;
             for (Student j : i.studentList) {
-                counter++;
-                students.append(" student ").append(counter).append(" id:").append(j.student_id);
+                    counter++;
+                    students.append(" student ").append(counter).append(" id:").append(j.student_id);
             }
             writer.write("Type: Special"+" Title:" + i.title + " Teacher:" + i.teacher + " Department:" + i.department + " code:" + i.code + " Capacity:" + i.capacity + " Credit:" + i.credit + " Day:" + i.class_time.weekday + " Start:" + i.class_time.start + " End:" + i.class_time.end + " Exam Day:" + i.exam_time.weekday + " start:" + i.exam_time.start + " end:" + i.exam_time.end + " Students:" + students + "\n");
         }
         for (Course i : General_courses.general_courses) {
             StringBuilder students = new StringBuilder();
+            int counter = 0;
             for (Student j : i.studentList) {
-                students.append(" student id:").append(j.student_id);
+                    counter++;
+                    students.append(" student ").append(counter).append(" id:").append(j.student_id);
             }
             writer.write("Type: General"+" Title:" + i.title + " Teacher:" + i.teacher + " Department:" + i.department + " code:" + i.code + " Capacity:" + i.capacity + " Credit:" + i.credit + " Day:" + i.class_time.weekday + " Start:" + i.class_time.start + " End:" + i.class_time.end + " Exam Day:" + i.exam_time.weekday + " start:" + i.exam_time.start + " end:" + i.exam_time.end + " Students:" + students + "\n");
         }

@@ -49,6 +49,9 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
+//        Special_courses.add();
+//        General_courses.add();
+//        Fileclass.add();
         Fileclass.read();
         main_menu();
     }
@@ -433,13 +436,13 @@ public class Main {
                                         if (i.studentList.size() < i.capacity && k.credit <= 20 && k.general <= 5 && check(k, i)) {
                                             i.studentList.add(k);
                                             k.courses.add(i);
-                                            Fileclass.add();
 
                                         } else {
                                             System.out.println("Invalid");
                                             k.credit -= i.credit;
                                             k.general -= i.credit;
                                         }
+                                        Fileclass.add();
                                         break j;
                                     }
                                 }
@@ -461,10 +464,10 @@ public class Main {
                                         i.studentList.remove(k);
                                         k.courses.remove(i);
                                         k.credit += i.credit;
-                                        Fileclass.add();
                                         if (i.type.type == 1) {
                                             k.general += i.credit;
                                         }
+                                        Fileclass.add();
                                         break j;
                                     }
                                 }
@@ -514,13 +517,13 @@ public class Main {
                                         if (i.studentList.size() < i.capacity && k.credit <= 20 && k.general <= 5 && check(k, i)) {
                                             i.studentList.add(k);
                                             k.courses.add(i);
-                                            Fileclass.add();
 
                                         } else {
                                             System.out.println("Invalid");
                                             k.credit -= i.credit;
                                             k.general -= i.credit;
                                         }
+                                        Fileclass.add();
                                         break j;
                                     }
                                 }
@@ -542,10 +545,10 @@ public class Main {
                                         i.studentList.remove(k);
                                         k.courses.remove(i);
                                         k.credit += i.credit;
-                                        Fileclass.add();
                                         if (i.type.type == 1) {
                                             k.general += i.credit;
                                         }
+                                        Fileclass.add();
                                         break j;
                                     }
                                 }
@@ -586,7 +589,6 @@ public class Main {
     }
 
     public static void remove() throws IOException {
-        Fileclass.add();
         int code;
         int choice;
         boolean course_exist = false;
