@@ -11,7 +11,7 @@ Type: General Title:Andishe I Teacher:Iman Department:Maths code:100 Capacity:3 
 Type: General Title:Andishe II Teacher:Javad Department:Physics code:200 Capacity:3 Credit:2 Day:se_shanbe Start:6 End:7 Exam Day:3_khordad start:3 end:4 Students: student 1 id:12345
 Type: General Title:Andishe III Teacher:Kambiz Department:Computer code:300 Capacity:3 Credit:2 Day:do_shanbe Start:5 End:6 Exam Day:6_khordad start:4 end:5 Students:
 Type: General Title:Andishe IIII Teacher:Leyla Department:Chemistry code:400 Capacity:3 Credit:2 Day:se_shanbe Start:2 End:4 Exam Day:2_khordad start:4 end:5 Students:
-Type: General Title:Engelab Teacher:Jahangir Department:Computer code:303 Capacity:10 Credit:2 Day:chahar_shanbe Start:1 End:3 Exam Day:4_khordad start:5 end:7 Students:
 student id:1234 password:1234 credit:0 general credit:0 courses:
-student id:123 password:123 credit:0 general credit:0 courses:
+student id:123 password:123 credit:2 general credit:2 courses:
 student id:12345 password:21345 credit:2 general credit:2 courses: Code:200 Title:Andishe II
+student id:401100025 password:1382 credit:0 general credit:0 courses:

@@ -54,7 +54,6 @@ public class Main {
 //        General_courses.add();
 //        Fileclass.add();
         Fileclass.read();
-        /////////////////////////////////////////////////////////
         main_menu();
     }
 
@@ -352,7 +351,7 @@ public class Main {
         }
     }
 
-    public static void capacity() throws IOException {
+    public static void capacity() {
         System.out.println("Enter course code Back (1)");
         int code = scanner.nextInt();
         int capacity;
