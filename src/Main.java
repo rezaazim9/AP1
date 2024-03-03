@@ -239,6 +239,7 @@ public class Main {
                             } else {
                                 student.credit += i.credit;
                                 student.courses.add(i);
+                                i.studentList.add(student);
                             }
                             break;
                         }
@@ -253,6 +254,7 @@ public class Main {
                                 student.credit += i.credit;
                                 student.general += i.credit;
                                 student.courses.add(i);
+                                i.studentList.add(student);
                             }
                             break;
                         }
@@ -425,6 +427,7 @@ public class Main {
                                         if (i.studentList.size() < i.capacity && k.credit + i.credit <= 20 && check(k, i)) {
                                             k.credit += i.credit;
                                             k.courses.add(i);
+                                            i.studentList.add(k);
                                         } else {
                                             System.out.println("Invalid");
                                         }
@@ -497,6 +500,7 @@ public class Main {
                                             k.credit += i.credit;
                                             k.general += i.credit;
                                             k.courses.add(i);
+                                            i.studentList.add(k);
                                         } else {
                                             System.out.println("Invalid");
                                         }

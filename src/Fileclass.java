@@ -15,7 +15,7 @@ public class Fileclass {
             if (obj_scanner.contains("Admin")) {
                 String admin_password = obj_scanner.substring(14);
                 Main.admin = new Admin("Admin", admin_password);
-            } else if (obj_scanner.contains("Special")) {
+            }  if (obj_scanner.contains("Type: Special")) {
                 List<Student> students = new ArrayList<>();
                 String title = obj_scanner.substring(obj_scanner.indexOf("Title:") + 6, obj_scanner.indexOf(" Teacher"));
                 String teacher = obj_scanner.substring(obj_scanner.indexOf("Teacher:") + 8, obj_scanner.indexOf(" Department"));
@@ -30,7 +30,7 @@ public class Fileclass {
                 String exam_start = obj_scanner.substring(obj_scanner.indexOf("start:") + 6, obj_scanner.indexOf(" end"));
                 String exam_end = obj_scanner.substring(obj_scanner.indexOf("end:") + 4, obj_scanner.indexOf(" Student"));
                 Special_courses.special_courses.add(new Special_courses(students, teacher, department, Integer.parseInt(code), title, Integer.parseInt(capacity), Integer.parseInt(credit), new Class_time(day, Integer.parseInt(day_start), Integer.parseInt(day_end)), new Exam_time(exam, Integer.parseInt(exam_start), Integer.parseInt(exam_end)), Type.Special));
-            } else if (obj_scanner.contains("Type: General")) {
+            } if (obj_scanner.contains("Type: General")) {
                 List<Student> students = new ArrayList<>();
                 String title = obj_scanner.substring(obj_scanner.indexOf("Title:") + 6, obj_scanner.indexOf(" Teacher"));
                 String teacher = obj_scanner.substring(obj_scanner.indexOf("Teacher:") + 8, obj_scanner.indexOf(" Department"));
@@ -45,7 +45,7 @@ public class Fileclass {
                 String exam_start = obj_scanner.substring(obj_scanner.indexOf("start:") + 6, obj_scanner.indexOf(" end"));
                 String exam_end = obj_scanner.substring(obj_scanner.indexOf("end:") + 4, obj_scanner.indexOf(" Student"));
                 General_courses.general_courses.add(new Special_courses(students, teacher, department, Integer.parseInt(code), title, Integer.parseInt(capacity), Integer.parseInt(credit), new Class_time(day, Integer.parseInt(day_start), Integer.parseInt(day_end)), new Exam_time(exam, Integer.parseInt(exam_start), Integer.parseInt(exam_end)), Type.General));
-            } else if (obj_scanner.contains("student id")) {
+            } if (obj_scanner.contains("student id")) {
                 String student_id = obj_scanner.substring(obj_scanner.indexOf("student id:") + 11, obj_scanner.indexOf(" password"));
                 String password = obj_scanner.substring(obj_scanner.indexOf("password:") + 9, obj_scanner.indexOf(" credit"));
                 String credit = obj_scanner.substring(obj_scanner.indexOf("credit:") + 7, obj_scanner.indexOf(" general credit"));
