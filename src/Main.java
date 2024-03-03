@@ -151,7 +151,7 @@ public class Main {
                     System.out.println("No courses");
                 } else {
                     for (Course i : student.courses) {
-                        System.out.println(i.title);
+                        System.out.println("title:" + i.title + " code:" + i.code + " teacher:" + i.teacher + " capacity:" + i.capacity + " number of students:" + i.studentList.size() + " credit:" + i.credit + " day:" + i.class_time.weekday + " start:" + i.class_time.start + " end:" + i.class_time.end + " exam day:" + i.exam_time.weekday + " start:" + i.exam_time.start + " end:" + i.exam_time.end + " type:" + i.type);
                     }
                 }
             } else if (choice == 2) {
@@ -211,6 +211,7 @@ public class Main {
                     if (i.code == course_choice) {
                         student.credit -= i.credit;
                         student.courses.remove(i);
+                        i.studentList.remove(student);
                     }
                 }
                 for (Course i : General_courses.general_courses) {
@@ -218,6 +219,8 @@ public class Main {
                         student.credit -= i.credit;
                         student.general -= i.credit;
                         student.courses.remove(i);
+                        i.studentList.remove(student);
+
                     }
                 }
                 if (!course_exist) {
