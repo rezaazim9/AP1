@@ -11,12 +11,11 @@ public class Fileclass {
         File obj = new File("/home/reza/IdeaProjects/untitled/src/file.txt");
         Scanner scanner = new Scanner(obj);
         while (scanner.hasNextLine()) {
-            String obj_scanner= scanner.nextLine();
-            if (obj_scanner.contains("Admin")){
+            String obj_scanner = scanner.nextLine();
+            if (obj_scanner.contains("Admin")) {
                 String admin_password = obj_scanner.substring(14);
                 Main.admin = new Admin("Admin", admin_password);
-            }
-           else if (obj_scanner.contains("Special")) {
+            } else if (obj_scanner.contains("Special")) {
                 List<Student> students = new ArrayList<>();
                 String title = obj_scanner.substring(obj_scanner.indexOf("Title:") + 6, obj_scanner.indexOf(" Teacher"));
                 String teacher = obj_scanner.substring(obj_scanner.indexOf("Teacher:") + 8, obj_scanner.indexOf(" Department"));
@@ -31,8 +30,7 @@ public class Fileclass {
                 String exam_start = obj_scanner.substring(obj_scanner.indexOf("start:") + 6, obj_scanner.indexOf(" end"));
                 String exam_end = obj_scanner.substring(obj_scanner.indexOf("end:") + 4, obj_scanner.indexOf(" Student"));
                 Special_courses.special_courses.add(new Special_courses(students, teacher, department, Integer.parseInt(code), title, Integer.parseInt(capacity), Integer.parseInt(credit), new Class_time(day, Integer.parseInt(day_start), Integer.parseInt(day_end)), new Exam_time(exam, Integer.parseInt(exam_start), Integer.parseInt(exam_end)), Type.Special));
-            }
-            else if (obj_scanner.contains("Type: General")) {
+            } else if (obj_scanner.contains("Type: General")) {
                 List<Student> students = new ArrayList<>();
                 String title = obj_scanner.substring(obj_scanner.indexOf("Title:") + 6, obj_scanner.indexOf(" Teacher"));
                 String teacher = obj_scanner.substring(obj_scanner.indexOf("Teacher:") + 8, obj_scanner.indexOf(" Department"));
@@ -47,40 +45,56 @@ public class Fileclass {
                 String exam_start = obj_scanner.substring(obj_scanner.indexOf("start:") + 6, obj_scanner.indexOf(" end"));
                 String exam_end = obj_scanner.substring(obj_scanner.indexOf("end:") + 4, obj_scanner.indexOf(" Student"));
                 General_courses.general_courses.add(new Special_courses(students, teacher, department, Integer.parseInt(code), title, Integer.parseInt(capacity), Integer.parseInt(credit), new Class_time(day, Integer.parseInt(day_start), Integer.parseInt(day_end)), new Exam_time(exam, Integer.parseInt(exam_start), Integer.parseInt(exam_end)), Type.General));
+            } else if (obj_scanner.contains("student id")) {
+                String student_id = obj_scanner.substring(obj_scanner.indexOf("student id:") + 11, obj_scanner.indexOf(" password"));
+                String password = obj_scanner.substring(obj_scanner.indexOf("password:") + 9, obj_scanner.indexOf(" credit"));
+                String credit = obj_scanner.substring(obj_scanner.indexOf("credit:") + 7, obj_scanner.indexOf(" general credit"));
+                String general = obj_scanner.substring(obj_scanner.indexOf("general credit:") + 15, obj_scanner.indexOf(" courses"));
+                List<Course> courses = new ArrayList<>();
+                for (Course i : Special_courses.special_courses) {
+                    int index = 0;
+                    while (obj_scanner.indexOf("Title:", index) != -1) {
+                        if (i.code == Integer.parseInt(obj_scanner.substring(obj_scanner.indexOf("Code:", index) + 5, obj_scanner.indexOf(" Title:", index)))) {
+                            courses.add(i);
+                        }
+                        index = obj_scanner.indexOf("Title:", index) + 1;
+                    }
+                }
+                for (Course i : General_courses.general_courses) {
+                    int index = 0;
+                    while (obj_scanner.indexOf("Title:", index) != -1) {
+                        if (i.code == Integer.parseInt(obj_scanner.substring(obj_scanner.indexOf("Code:", index) + 5, obj_scanner.indexOf(" Title:", index)))) {
+                            courses.add(i);
+                        }
+                        index = obj_scanner.indexOf("Title:", index) + 1;
+                    }
+                }
+                Main.studentList.add(new Student(Integer.parseInt(student_id), Integer.parseInt(password), courses, Integer.parseInt(credit), Integer.parseInt(general)));
+
             }
-           else if (obj_scanner.contains("student id")) {
-               String student_id = obj_scanner.substring(obj_scanner.indexOf("student id:") + 11, obj_scanner.indexOf(" password"));
-               String password = obj_scanner.substring(obj_scanner.indexOf("password:") + 9, obj_scanner.indexOf(" credit"));
-               String credit = obj_scanner.substring(obj_scanner.indexOf("credit:") + 7, obj_scanner.indexOf(" general credit"));
-               String general = obj_scanner.substring(obj_scanner.indexOf("general credit:") + 15, obj_scanner.indexOf(" courses"));
-               List<Course> courses = new ArrayList<>();
-               for (Course i: Special_courses.special_courses) {
-                   int index = 0;
-                   while (obj_scanner.indexOf("Title:", index) != -1) {
-                       if (i.code==Integer.parseInt(obj_scanner.substring(obj_scanner.indexOf("Code:",index) + 5,obj_scanner.indexOf(" Title:",index) ))) {
-                           courses.add(i);
-                       }
-                       index=obj_scanner.indexOf("Title:", index)+1;
-                   }
-               }
-               for (Course i: General_courses.general_courses){
-                   int index = 0;
-                   while (obj_scanner.indexOf("Title:", index) != -1) {
-                       if (i.code==Integer.parseInt(obj_scanner.substring(obj_scanner.indexOf("Code:",index) + 5,obj_scanner.indexOf(" Title:",index) ))) {
-                           courses.add(i);
-                       }
-                       index=obj_scanner.indexOf("Title:", index)+1;
-                   }
-               }
-               Main.studentList.add(new Student(Integer.parseInt(student_id), Integer.parseInt(password), courses, Integer.parseInt(credit), Integer.parseInt(general)));
-           }
-           for (Student i:Main.studentList){
-               for (Course j: i.courses){
-                   j.studentList.add(i);
-               }
-           }
+            for (Course course: General_courses.general_courses){
+                for (Student student1:Main.studentList) {
+                    if (!course.studentList.contains(student1)&&student1.courses.contains(course)) {
+                        course.studentList.add(student1);
+                    }
+                    if (course.studentList.contains(student1)&&!student1.courses.contains(course)) {
+                        student1.courses.add(course);
+                    }
+                }
+            }
+            for (Course course: Special_courses.special_courses){
+                for (Student student1:Main.studentList) {
+                    if (course.studentList.contains(student1)&&!student1.courses.contains(course)) {
+                        student1.courses.add(course);
+                    }
+                    if (!course.studentList.contains(student1)&&student1.courses.contains(course)) {
+                        course.studentList.add(student1);
+                    }
+                }
+            }
         }
     }
+
     public static void add() throws IOException {
         FileWriter writer = new FileWriter("/home/reza/IdeaProjects/untitled/src/file.txt");
         writer.write("AdminPassword=123\n");
@@ -88,19 +102,19 @@ public class Fileclass {
             StringBuilder students = new StringBuilder();
             int counter = 0;
             for (Student j : i.studentList) {
-                    counter++;
-                    students.append(" student ").append(counter).append(" id:").append(j.student_id);
+                counter++;
+                students.append(" student ").append(counter).append(" id:").append(j.student_id);
             }
-            writer.write("Type: Special"+" Title:" + i.title + " Teacher:" + i.teacher + " Department:" + i.department + " code:" + i.code + " Capacity:" + i.capacity + " Credit:" + i.credit + " Day:" + i.class_time.weekday + " Start:" + i.class_time.start + " End:" + i.class_time.end + " Exam Day:" + i.exam_time.weekday + " start:" + i.exam_time.start + " end:" + i.exam_time.end + " Students:" + students + "\n");
+            writer.write("Type: Special" + " Title:" + i.title + " Teacher:" + i.teacher + " Department:" + i.department + " code:" + i.code + " Capacity:" + i.capacity + " Credit:" + i.credit + " Day:" + i.class_time.weekday + " Start:" + i.class_time.start + " End:" + i.class_time.end + " Exam Day:" + i.exam_time.weekday + " start:" + i.exam_time.start + " end:" + i.exam_time.end + " Students:" + students + "\n");
         }
         for (Course i : General_courses.general_courses) {
             StringBuilder students = new StringBuilder();
             int counter = 0;
             for (Student j : i.studentList) {
-                    counter++;
-                    students.append(" student ").append(counter).append(" id:").append(j.student_id);
+                counter++;
+                students.append(" student ").append(counter).append(" id:").append(j.student_id);
             }
-            writer.write("Type: General"+" Title:" + i.title + " Teacher:" + i.teacher + " Department:" + i.department + " code:" + i.code + " Capacity:" + i.capacity + " Credit:" + i.credit + " Day:" + i.class_time.weekday + " Start:" + i.class_time.start + " End:" + i.class_time.end + " Exam Day:" + i.exam_time.weekday + " start:" + i.exam_time.start + " end:" + i.exam_time.end + " Students:" + students + "\n");
+            writer.write("Type: General" + " Title:" + i.title + " Teacher:" + i.teacher + " Department:" + i.department + " code:" + i.code + " Capacity:" + i.capacity + " Credit:" + i.credit + " Day:" + i.class_time.weekday + " Start:" + i.class_time.start + " End:" + i.class_time.end + " Exam Day:" + i.exam_time.weekday + " start:" + i.exam_time.start + " end:" + i.exam_time.end + " Students:" + students + "\n");
         }
         for (Student i : Main.studentList) {
             StringBuilder courses = new StringBuilder();

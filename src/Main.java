@@ -15,6 +15,7 @@ public class Main {
             System.out.println("Sign up(1) Login(2) Exit(3)");
             login_choice = scanner.nextInt();
             if (login_choice == 3) {
+                Fileclass.add();
                 System.exit(0);
             } else if (login_choice == 1) {
                 while (true) {
@@ -53,6 +54,7 @@ public class Main {
 //        General_courses.add();
 //        Fileclass.add();
         Fileclass.read();
+        /////////////////////////////////////////////////////////
         main_menu();
     }
 
@@ -139,7 +141,6 @@ public class Main {
 
     public static void student_menu(Student student) throws IOException {
         int choice;
-        Fileclass.add();
         while (true) {
             System.out.println("My courses (1) Courses list (2) Back (3) main menu (0)");
             choice = scanner.nextInt();
@@ -166,14 +167,15 @@ public class Main {
 
     public static boolean check(Student student, Course course) {
         for (Course i : student.courses) {
-            if (i.code==course.code){
+            if (i.code == course.code) {
                 return false;
-            } if (course.class_time.weekday.equals(i.class_time.weekday)) {
+            }
+            if (course.class_time.weekday.equals(i.class_time.weekday)) {
                 if ((course.class_time.start <= i.class_time.end && course.class_time.start >= i.class_time.start) || (course.class_time.end <= i.class_time.end && course.class_time.end >= i.class_time.start)) {
                     return false;
                 }
             }
-             if (course.exam_time.weekday.equals(i.exam_time.weekday)) {
+            if (course.exam_time.weekday.equals(i.exam_time.weekday)) {
                 if ((course.exam_time.start <= i.exam_time.end && course.exam_time.start >= i.exam_time.start) || (course.exam_time.end <= i.exam_time.end && course.exam_time.end >= i.exam_time.start)) {
                     return false;
                 }
@@ -183,7 +185,6 @@ public class Main {
     }
 
     public static void add_remove(Student student) throws IOException {
-        Fileclass.add();
         int course_choice;
         int choice_register;
         while (true) {
@@ -208,16 +209,15 @@ public class Main {
                 }
                 for (Course i : Special_courses.special_courses) {
                     if (i.code == course_choice) {
+                        student.credit -= i.credit;
                         student.courses.remove(i);
-                        i.studentList.remove(student);
-                        Fileclass.add();
                     }
                 }
                 for (Course i : General_courses.general_courses) {
                     if (i.code == course_choice) {
+                        student.credit -= i.credit;
+                        student.general -= i.credit;
                         student.courses.remove(i);
-                        i.studentList.remove(student);
-                        Fileclass.add();
                     }
                 }
                 if (!course_exist) {
@@ -225,7 +225,7 @@ public class Main {
                 }
             } else if (choice_register == 1) {
                 while (true) {
-                    boolean exist=false;
+                    boolean exist = false;
                     System.out.println("Enter course code Back(1)");
                     course_choice = scanner.nextInt();
                     if (course_choice == 1) {
@@ -233,36 +233,31 @@ public class Main {
                     }
                     for (Course i : Special_courses.special_courses) {
                         if (i.code == course_choice) {
-                            exist=true;
-                            student.credit += i.credit;
-                            if (student.general > 5 || student.credit > 20 || !check(student, i)) {
+                            exist = true;
+                            if (student.credit + i.credit > 20 || !check(student, i)) {
                                 System.out.println("Invalid");
-                                student.credit -= i.credit;
                             } else {
-                                i.studentList.add(student);
+                                student.credit += i.credit;
                                 student.courses.add(i);
-                                Fileclass.add();
                             }
                             break;
                         }
                     }
                     for (Course i : General_courses.general_courses) {
                         if (i.code == course_choice) {
-                            exist=true;
-                            student.credit += i.credit;
-                            student.general+= i.credit;
-                            if (student.general > 5 || student.credit > 20 || !check(student, i)) {
+                            exist = true;
+
+                            if (student.general + i.credit > 5 || student.credit + i.credit > 20 || !check(student, i)) {
                                 System.out.println("Invalid");
-                                student.credit -= i.credit;
-                                student.general-= i.credit;
                             } else {
-                                i.studentList.add(student);
+                                student.credit += i.credit;
+                                student.general += i.credit;
                                 student.courses.add(i);
-                                Fileclass.add();
                             }
                             break;
                         }
-                    }if (!exist){
+                    }
+                    if (!exist) {
                         System.out.println("There is no course with this code");
                     }
                 }
@@ -273,7 +268,6 @@ public class Main {
     }
 
     public static void register_course(Student student) throws IOException {
-        Fileclass.add();
         int choice;
         while (true) {
             System.out.println("Choose faculty Maths (1) Physics (2) Computer (3) Chemistry (4) Back (5) main menu (0)");
@@ -301,7 +295,6 @@ public class Main {
     }
 
     public static void admin_menu() throws IOException {
-        Fileclass.add();
         int choice;
         while (true) {
             System.out.println("Capacity (1) Students registration (2) Courses list (3) Adding-Removing course (4) Back(5) main menu (0)");
@@ -370,7 +363,6 @@ public class Main {
                     break;
                 }
                 i.capacity += capacity;
-                Fileclass.add();
             }
         }
         for (Course i : General_courses.general_courses) {
@@ -382,7 +374,6 @@ public class Main {
                     break;
                 }
                 i.capacity += capacity;
-                Fileclass.add();
             }
         }
         if (!course_exist && code != 1) {
@@ -431,18 +422,12 @@ public class Main {
                                 for (Student k : studentList) {
                                     if (k.student_id == student_id) {
                                         student_exist = true;
-                                        k.credit += i.credit;
-                                        k.general += i.credit;
-                                        if (i.studentList.size() < i.capacity && k.credit <= 20 && k.general <= 5 && check(k, i)) {
-                                            i.studentList.add(k);
+                                        if (i.studentList.size() < i.capacity && k.credit + i.credit <= 20 && check(k, i)) {
+                                            k.credit += i.credit;
                                             k.courses.add(i);
-
                                         } else {
                                             System.out.println("Invalid");
-                                            k.credit -= i.credit;
-                                            k.general -= i.credit;
                                         }
-                                        Fileclass.add();
                                         break j;
                                     }
                                 }
@@ -461,13 +446,9 @@ public class Main {
                                 for (Student k : studentList) {
                                     if (k.student_id == student_id) {
                                         student_exist = true;
-                                        i.studentList.remove(k);
+                                        k.credit -= i.credit;
                                         k.courses.remove(i);
-                                        k.credit += i.credit;
-                                        if (i.type.type == 1) {
-                                            k.general += i.credit;
-                                        }
-                                        Fileclass.add();
+                                        i.studentList.remove(k);
                                         break j;
                                     }
                                 }
@@ -512,18 +493,13 @@ public class Main {
                                 for (Student k : studentList) {
                                     if (k.student_id == student_id) {
                                         student_exist = true;
-                                        k.credit += i.credit;
-                                        k.general += i.credit;
-                                        if (i.studentList.size() < i.capacity && k.credit <= 20 && k.general <= 5 && check(k, i)) {
-                                            i.studentList.add(k);
+                                        if (i.studentList.size() < i.capacity && k.credit + i.credit <= 20 && k.general + i.credit <= 5 && check(k, i)) {
+                                            k.credit += i.credit;
+                                            k.general += i.credit;
                                             k.courses.add(i);
-
                                         } else {
                                             System.out.println("Invalid");
-                                            k.credit -= i.credit;
-                                            k.general -= i.credit;
                                         }
-                                        Fileclass.add();
                                         break j;
                                     }
                                 }
@@ -542,13 +518,10 @@ public class Main {
                                 for (Student k : studentList) {
                                     if (k.student_id == student_id) {
                                         student_exist = true;
-                                        i.studentList.remove(k);
+                                        k.general -= i.credit;
+                                        k.credit -= i.credit;
                                         k.courses.remove(i);
-                                        k.credit += i.credit;
-                                        if (i.type.type == 1) {
-                                            k.general += i.credit;
-                                        }
-                                        Fileclass.add();
+                                        i.studentList.remove(k);
                                         break j;
                                     }
                                 }
@@ -669,10 +642,9 @@ public class Main {
                         if (i.code == code) {
                             course_exist = true;
                             General_courses.general_courses.remove(i);
-                            for (Student j:studentList){
+                            for (Student j : studentList) {
                                 j.courses.remove(i);
                             }
-                            Fileclass.add();
                             break j;
                         }
                     }
@@ -750,10 +722,9 @@ public class Main {
                         if (i.code == code) {
                             course_exist = true;
                             Special_courses.special_courses.remove(i);
-                            for (Student j:studentList){
+                            for (Student j : studentList) {
                                 j.courses.remove(i);
                             }
-                            Fileclass.add();
                             break j;
                         }
                     }
@@ -855,7 +826,6 @@ public class Main {
                                                 Special_courses.special_courses.add(new_course);
                                                 break k;
                                             }
-                                            Fileclass.add();
                                         }
                                     }
                                 }
