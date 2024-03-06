@@ -159,7 +159,6 @@ public class Main {
                 break;
             } else {
                 System.out.println("Choose between 1 ,2 ,3 !!!!!!");
-                break;
             }
         }
     }
