@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Fileclass {
 
     public static void read() throws IOException {
-        File obj = new File("/home/reza/IdeaProjects/untitled/src/file.txt");
+        File obj = new File("C:\\Users\\reza\\IdeaProjects\\untitled\\src\\file.txt");
         Scanner scanner = new Scanner(obj);
         while (scanner.hasNextLine()) {
             String obj_scanner = scanner.nextLine();
@@ -96,7 +96,7 @@ public class Fileclass {
     }
 
     public static void add() throws IOException {
-        FileWriter writer = new FileWriter("/home/reza/IdeaProjects/untitled/src/file.txt");
+        FileWriter writer = new FileWriter("C:\\Users\\reza\\IdeaProjects\\untitled\\src\\file.txt");
         writer.write("AdminPassword=123\n");
         for (Course i : Special_courses.special_courses) {
             StringBuilder students = new StringBuilder();
